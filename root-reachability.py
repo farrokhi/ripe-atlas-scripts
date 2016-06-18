@@ -6,7 +6,6 @@ from datetime import datetime
 from ripe.atlas.cousteau import Traceroute, Dns, AtlasCreateRequest, AtlasSource, AtlasResultsRequest
 
 # Globals
-COUNTRIES = ['IR', 'EG', 'TR', 'IQ', 'SA', 'YE', 'SY', 'AE', 'IL', 'JO', 'PS', 'LB', 'OM', 'KW', 'QA', 'BH', 'AF']
 API_CREATE_KEY = ''
 
 
@@ -66,7 +65,7 @@ def create_all(countries, ids):
             if res is not None:
                 ids[cc] = res
 
-        return ids
+    return ids
 
 
 def dump_dns(ids):
@@ -106,7 +105,7 @@ def dump_trace(ids):
 
 
 def main():
-    global COUNTRIES
+    COUNTRIES = ['IR', 'EG', 'TR', 'IQ', 'SA', 'YE', 'SY', 'AE', 'IL', 'JO', 'PS', 'LB', 'OM', 'KW', 'QA', 'BH', 'AF']
     fn = "meas-ids.json"
 
     if len(sys.argv) < 2:
