@@ -26,7 +26,7 @@ Here is a sample measurement done using the script:
 
 Now loading DNS measurements, output in CSV:
 ```
-% ./root-reachability.py load-dns
+% ./root-reachability.py load-rtt
 cc, num_probes,  avg_rtt
 IE, 47, 42
 FR, 48, 42
