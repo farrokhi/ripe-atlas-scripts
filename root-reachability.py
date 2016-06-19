@@ -152,7 +152,10 @@ def dump_dns(ids):
                 except:
                     pass
 
-            average = sum(rt_list) // len(rt_list)
+            if len(rt_list)>0:
+                average = sum(rt_list) // len(rt_list)
+            else:
+                average = 0
             print("%s, %d, %d" % (cc, len(rt_list), average))
 
 
@@ -182,18 +185,18 @@ def dump_trace(ids):
 
 
 def main():
-    COUNTRIES = ['IR', 'EG', 'TR', 'IQ', 'SA', 'YE', 'SY', 'AE', 'IL', 'JO', 'PS', 'LB', 'OM', 'KW', 'QA', 'BH', 'AF']
+    COUNTRIES = "UZ UA TM TJ RU LV KZ KG GE EE BY AZ AM".split()
     fn = "meas-ids.json"
 
     if len(sys.argv) < 2:
-        print("please run with one of the following parameters: [create|load-dns|load-trace]")
+        print("please run with one of the following parameters: [create|load-rtt|load-trace]")
         exit(0)
     _cmd = sys.argv[1].lower()
     if _cmd == 'create':
         ids = load_ids(fn)
         ids = create_all(countries=COUNTRIES, ids=ids)
         save_ids(fn, ids)
-    elif _cmd == 'load-dns':
+    elif _cmd == 'load-rtt':
         ids = load_ids(fn)
         dump_dns(ids)
     elif _cmd == 'load-trace':
