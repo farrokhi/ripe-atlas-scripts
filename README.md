@@ -33,8 +33,8 @@ FR, 48, 42
 DE, 49, 49
 DK, 45, 44
 NL, 49, 21
-
 ```
+
 And Traceroute measurements, output in CSV:
 ```
 % ./root-reachability.py load-trace
