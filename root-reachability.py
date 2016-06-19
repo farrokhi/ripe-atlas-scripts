@@ -10,6 +10,14 @@ API_CREATE_KEY = ''
 
 
 def create_measurement(cc):
+    """
+    Creates DNS and Traceroute measurements for given country code
+
+    @param cc: Two characters (ISO) country code
+    @type cc: str
+    @return: tuple of measurement ids
+    @rtype: tuple
+    """
     global API_CREATE_KEY
 
     traceroute = Traceroute(af=4, target="193.0.14.129", protocol="ICMP",
@@ -38,6 +46,14 @@ def create_measurement(cc):
 
 
 def load_ids(fn):
+    """
+    Loads measurement IDs from given file
+
+    @param fn: input filename
+    @type fn: str
+    @return: Dictionary of loaded measurement IDs
+    @rtype: dict
+    """
     ids = {}
 
     if os.path.exists(fn):
@@ -51,12 +67,32 @@ def load_ids(fn):
 
 
 def save_ids(fn, ids):
+    """
+    Saves given dictionary of measurement IDs to file
+
+    @param fn: input filename
+    @type fn: str
+    @param ids: Dictionary of IDs
+    @type ids: dict
+    @return: None
+    """
     with open(fn, "w") as fp:  # save all ids to json
         json.dump(ids, fp)
         fp.flush()
 
 
 def create_all(countries, ids):
+    """"
+    Iterates over list of given country codes and creates atlas measurement for each,
+    if it is not already created considering list of IDs
+
+    @param countries: list of country codes
+    @type countries: list
+    @param ids: dictionary of existing measurement IDs
+    @type ids: dict
+    @return updated dictionary of ids
+    @rtype: dict
+    """
     for cc in countries:
         if cc in ids:
             print("- measurement for %s already exists" % cc)
@@ -69,6 +105,13 @@ def create_all(countries, ids):
 
 
 def dump_dns(ids):
+    """
+    fetches and calculates and dumps to console the DNS measurements for all countries given in IDs dict
+
+    @param ids: dict of measurement ids
+    @type ids: dict
+    @return: None
+    """
     print("cc, num_probes,  avg_rtt")
     for cc, mid in ids.items():
         is_success, results = AtlasResultsRequest(msm_id=mid[1]).create()
@@ -87,6 +130,13 @@ def dump_dns(ids):
 
 
 def dump_trace(ids):
+    """
+    fetches and calculates and dumps to console the Traceroute measurements for all countries given in IDs list
+
+    @param ids: dict of measurement ids
+    @type ids: dict
+    @return: None
+    """
     print("cc, num_probes,  num_hops")
     for cc, mid in ids.items():
         is_success, results = AtlasResultsRequest(msm_id=mid[0]).create()
